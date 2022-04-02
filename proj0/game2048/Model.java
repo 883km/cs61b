@@ -136,9 +136,11 @@ public class Model extends Observable {
     /** Returns true if at least one space on the Board is empty.
      *  Empty spaces are stored as null.
      * */
+
     public static boolean emptySpaceExists(Board b) {
-        for (int i = 1; i < b.size(); i++) {
-            for (int j = 1; j < b.size(); j++) {
+        int size = b.size();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 if (b.tile(i, j) == null) {
                     return true;
                 }
@@ -153,9 +155,8 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function. To be tested.
-        for (int i = 1; i < b.size(); i++) {
-            for (int j = 1; j < b.size(); j++) {
+        for (int i = 0; i < b.size(); i++) {
+            for (int j = 0; j < b.size(); j++) {
                 if (b.tile(i, j) == null) {
                     continue;
                 } else if (b.tile(i, j).value() == MAX_PIECE) {
@@ -173,22 +174,22 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function. To be tested.
+        int size = b.size();
         /** There is at least one empty space on the board. */
         if (emptySpaceExists(b)) {
             return true;
         }
         /** There are two adjacent tiles (horizontal) with the same value. */
-        for (int i = 1; i < b.size() - 1; i++) {
-            for (int j = 1; j < b.size(); j++) {
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = 0; j < size; j++) {
                 if (b.tile(i, j).value() == b.tile(i + 1, j).value()) {
                     return true;
                 }
             }
         }
         /** There are two adjacent tiles (vertical) with the same value. */
-        for (int i = 1; i < b.size(); i++) {
-            for (int j = 1; j < b.size() - 1; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size - 1; j++) {
                 if (b.tile(i, j).value() == b.tile(i, j + 1).value()) {
                     return true;
                 }

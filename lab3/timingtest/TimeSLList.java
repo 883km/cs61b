@@ -40,7 +40,9 @@ public class TimeSLList {
         SLList<Integer> L = new SLList<>();
         addToSLList(n, L);
         Stopwatch sw = new Stopwatch();
-        L.getLast();
+        for (int i = 0; i < 10000; i++) {
+            L.getLast();
+        }
         return sw.elapsedTime();
     }
 

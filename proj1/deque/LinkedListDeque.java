@@ -18,6 +18,8 @@ public class LinkedListDeque<T> {
     private int size;
 
     public LinkedListDeque() {
+        //https://www.youtube.com/watch?v=hoYMyvWjCTg&list=PL8FaHk7qbOD7Ycy9QeJSPXVoTwAH52Rlw&index=3
+        //4:45 sentinel null
         sentinel = new Node(null, null,null);
         size = 0;
     }
@@ -33,21 +35,32 @@ public class LinkedListDeque<T> {
 
     public void addFirst(T item) {
         size += 1;
-        Node node = new Node(item, sentinel, sentinel.next);
-        sentinel.next.prev = node;
+        Node node;
+        if (size == 1) {
+            node = new Node(item, sentinel, sentinel);
+            sentinel.prev = node;
+        } else {
+            node = new Node(item, sentinel, sentinel.next);
+            sentinel.next.prev = node;
+        }
         sentinel.next = node;
     }
 
     public void addLast(T item) {
         size += 1;
-        Node node = new Node(item, sentinel.prev, sentinel);
-        sentinel.prev.next = node;
+        Node node;
+        if (size == 1) {
+            node = new Node(item, sentinel, sentinel);
+            sentinel.next = node;
+        } else {
+            node = new Node(item, sentinel.prev, sentinel);
+            sentinel.prev.next = node;
+        }
         sentinel.prev = node;
     }
 
     public boolean isEmpty() {
-        if (size == 0) {return true;}
-        return false;
+        return size == 0;
     }
 
     public int size() {
@@ -77,7 +90,7 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        if (size > 0) {
+        if (size > 0 && index < size) {
             Node current = sentinel;
             for (int i = 0; i < size; i++) {
                 current = sentinel.next;
@@ -87,11 +100,24 @@ public class LinkedListDeque<T> {
         return null;
     }
 
+    public T getRecursive(int index) {
+        // TODO: to be finished.
+        Node current;
+        if (size == 0 || index >= size) {
+            return null;
+        } else if (size == 1) {
+            current = sentinel.next;
+        } else {
+            current = null;
+        }
+        return current.item;
+    }
+
     public void printDeque() {
         if (size > 0) {
             Node current = sentinel.next;
             for (int i = 0; i < size; i++) {
-                System.out.println(current.item + " ");
+                System.out.print(current.item + " ");
                 current = current.next;
             }
             System.out.println();

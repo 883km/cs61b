@@ -11,34 +11,41 @@ public class ArrayDeque<T> {
         size = 0;
     }
 
-    public void addFirst(T item) { // TODO
+
+    public void addFirst(T item) {
         if (size == items.length) {
-            resize(size * 2);
+            resizeArray(size * 2);
         }
         size += 1;
         if (size == 1) {
-            items[0] = item;
             first = 0;
             last = 0;
         } else {
-            // TODO
+            if (first == 0) {
+                first = items.length - 1;
+            } else {
+                first -= 1;
+            }
         }
-
+        items[first] = item;
     }
 
     public void addLast(T item) {
         if (size == items.length) {
-            resize(size * 2);
+            resizeArray(size * 2);
         }
         size += 1;
         if (size == 1) {
-            items[0] = item;
             first = 0;
             last = 0;
         } else {
-            last += 1;
-            items[last] = item;
+            if (last == items.length - 1) {
+                last = 0;
+            } else {
+                last += 1;
+            }
         }
+        items[last] = item;
     }
 
     public boolean isEmpty() {
@@ -49,9 +56,18 @@ public class ArrayDeque<T> {
         return size;
     }
 
-    public T removeFirst() { // TODO
+    public T removeFirst() {
         if (size > 0) {
-
+            shrinkArray();
+            T firstItem = items[first];
+            items[first] = null;
+            size -= 1;
+            if (first == items.length - 1) { // "first" falls on the biggest index of the array
+                first = 0;
+            } else {
+                first += 1;
+            }
+            return firstItem;
         }
         return null;
     }
@@ -62,39 +78,74 @@ public class ArrayDeque<T> {
             T lastItem = items[last];
             items[last] = null;
             size -= 1;
-            last -= 1;
+            if (last == 0) { // "last" falls on index 0 of the array
+                last = items.length - 1;
+            } else {
+                last -= 1;
+            }
             return lastItem;
         }
         return null;
     }
 
-    public T get(int index) { // TODO: needs to confirm which index he means.
+    public T get(int index) {
         if (size > 0 && index < size) {
-            return items[index];
+            if (first + index < items.length) {
+                return items[first + index];
+            } else {
+                return items[first + index - items.length];
+            }
         }
         return null;
     }
 
-    public void printDeque() { // TODO
+    public void printDeque() {
+        /** Consider two situations -
+         *  first < last: array index 0 does not fall in the middle of the deque (easy mode).
+         *      [null, null, first, xx, xx, xx, last, null, null]
+         *
+         *  first > last: array index 0 falls in the middle of the deque.
+         *      [xx, xx, xx, last, null, null, null, first, xx, xx]
+         *  */
+
         if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                System.out.print(items[i] + " ");
+            if (first <= last) {
+                for (int i = first; i <= last; i++) {
+                    System.out.print(items[i] + " ");
+                }
+            } else {
+                for (int i = first; i <= items.length; i++) {
+                    System.out.print(items[i] + " ");
+                }
+                for (int i = 0; i <= last; i++) {
+                    System.out.print(items[i] + " ");
+                }
             }
             System.out.println();
         }
     }
 
-    /** Helper methods below. */
-    private void resize(int capacity) { // TODO
+    /** HELPER methods below. */
+
+    private void resizeArray(int capacity) {
+        /** Consider the two situations mentioned above*/
+
         T[] newItems = (T []) new Object[capacity];
-        System.arraycopy(items, 0, newItems, 0, size);
+        if (first < last) {
+            System.arraycopy(items, first, newItems, 0, size);
+        } else {
+            System.arraycopy(items, first, newItems, 0, (items.length - first));
+            System.arraycopy(items, 0, newItems, (items.length - first + 1), (last + 1));
+            first = 0;
+            last = size - 1;
+        }
         items = newItems;
     }
 
-    /** check array usage and shrink array length if usage < 25%. */
+    /** check array usage. If usage < 25% then shrink array length. */
     private void shrinkArray() {
         if ((size <= items.length / 4) && (size > 4)) {
-            resize(items.length / 4);
+            resizeArray(items.length / 4);
         }
     }
 }

@@ -136,10 +136,10 @@ public class ArrayDeque<T> {
         } else {
             System.arraycopy(items, first, newItems, 0, (items.length - first));
             System.arraycopy(items, 0, newItems, (items.length - first + 1), (last + 1));
-            first = 0;
-            last = size - 1;
         }
         items = newItems;
+        first = 0;
+        last = size - 1;
     }
 
     /** check array usage. If usage < 25% then shrink array length. */

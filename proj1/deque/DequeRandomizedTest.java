@@ -80,7 +80,7 @@ public class DequeRandomizedTest{
                 int randVal = StdRandom.uniform(0, lld.size());
                 int a = lld.get(randVal);
                 int b = ad.get(randVal);
-                b = ad.get(randVal);
+                b = ad.get(randVal); //set a breakpoint here to debug get(i).
                 System.out.println("lld" + a);
                 System.out.println("ad" + b);
             }

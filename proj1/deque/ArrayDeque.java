@@ -135,7 +135,7 @@ public class ArrayDeque<T> {
             System.arraycopy(items, first, newItems, 0, size);
         } else {
             System.arraycopy(items, first, newItems, 0, (items.length - first));
-            System.arraycopy(items, 0, newItems, (items.length - first + 1), (last + 1));
+            System.arraycopy(items, 0, newItems, (items.length - first), (last + 1));
         }
         items = newItems;
         first = 0;

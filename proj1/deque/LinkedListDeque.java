@@ -92,8 +92,8 @@ public class LinkedListDeque<T> {
     public T get(int index) {
         if (size > 0 && index < size) {
             Node current = sentinel;
-            for (int i = 0; i < size; i++) {
-                current = sentinel.next;
+            for (int i = 0; i <= index; i++) {
+                current = current.next;
             }
             return current.item;
         }

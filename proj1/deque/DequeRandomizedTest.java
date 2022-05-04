@@ -8,14 +8,13 @@ import static org.junit.Assert.assertEquals;
 
 
 public class DequeRandomizedTest{
-    // YOUR TESTS HERE
 
     @Test
     public void randomizedTest() {
         LinkedListDeque<Integer> lld = new LinkedListDeque<>();
         ArrayDeque<Integer> ad = new ArrayDeque<>();
 
-        int N = 5000;
+        int N = 10000;
         for (int i = 0; i < N; i += 1) {
             int operationNumber = StdRandom.uniform(0, 6);
             if (operationNumber == 0) {
@@ -41,6 +40,49 @@ public class DequeRandomizedTest{
                 // get
                 int randVal = StdRandom.uniform(0, lld.size());
                 assertEquals(lld.get(randVal), ad.get(randVal));
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+        ArrayDeque<Integer> ad = new ArrayDeque<>();
+
+        int N = 5000;
+        for (int i = 0; i < N; i += 1) {
+            System.out.println(i);
+            int operationNumber = StdRandom.uniform(0, 6);
+            if (operationNumber == 0) {
+                // addFirst
+                int randVal = StdRandom.uniform(0, 100);
+                lld.addFirst(randVal);
+                ad.addFirst(randVal);
+            } else if (operationNumber == 1) {
+                // addLast
+                int randVal = StdRandom.uniform(0, 100);
+                lld.addLast(randVal);
+                ad.addLast(randVal);
+            } else if (operationNumber == 2 && lld.size() > 0) {
+                //removeFirst
+                lld.removeFirst();
+                ad.removeFirst();
+            } else if (operationNumber == 3 && lld.size() > 0) {
+                //removeLast
+                lld.removeLast();
+                ad.removeLast();
+            } else if (operationNumber == 4) {
+                // size
+                lld.size();
+                ad.size();
+            } else if (operationNumber == 5 && lld.size() > 0) {
+                // get
+                int randVal = StdRandom.uniform(0, lld.size());
+                int a = lld.get(randVal);
+                int b = ad.get(randVal);
+                b = ad.get(randVal);
+                System.out.println("lld" + a);
+                System.out.println("ad" + b);
             }
         }
     }

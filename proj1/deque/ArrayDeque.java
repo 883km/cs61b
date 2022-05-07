@@ -163,7 +163,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         }
 
         public boolean hasNext() {
-            return wizPos != last;
+            return wizPos != last + 1;
         }
 
         public T next() {
@@ -174,6 +174,16 @@ public class ArrayDeque<T> implements Iterable<T> {
                 wizPos += 1;
             }
             return returnItem;
+        }
+    }
+
+    public static void main(String[] args) {
+        ArrayDeque<Integer> ad = new ArrayDeque();
+        for (int i = 0; i < 10; i++) {
+            ad.addLast(i);
+        }
+        for (int x : ad) {
+            System.out.println(x);
         }
     }
 }

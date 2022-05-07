@@ -1,6 +1,8 @@
 package deque;
 
-public class LinkedListDeque<T> {
+import java.util.Iterator;
+
+public class LinkedListDeque<T> implements Iterable<T> {
     private class Node {
         public T item;
         public Node prev;
@@ -121,6 +123,27 @@ public class LinkedListDeque<T> {
                 current = current.next;
             }
             System.out.println();
+        }
+    }
+
+    /** Make lld iterable. */
+    public Iterator<T> iterator() {
+        return new LldIterator();
+    }
+
+    private class LldIterator implements Iterator<T> {
+        private Node wizNode;
+        public LldIterator() {
+            wizNode = sentinel;
+        }
+
+        public boolean hasNext() {
+            return wizNode.next != sentinel;
+        }
+
+        public T next() {
+            wizNode = wizNode.next;
+            return wizNode.item;
         }
     }
 }

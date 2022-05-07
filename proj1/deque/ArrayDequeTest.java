@@ -2,6 +2,7 @@ package deque;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 
 /** Performs some basic linked list tests. */
@@ -111,5 +112,30 @@ public class ArrayDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
     }
+
+/*    @Test
+    public void iteratorTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque();
+        for (int i = 0; i < 10; i++) {
+            ad1.addLast(i);
+        }
+        ArrayDeque<Integer> ad2 = new ArrayDeque();
+        for (int x : ad1) {
+            ad2.addLast(x);
+        }
+        assertEquals(ad1, ad2);
+    }*/
+
+/*        public static void main(String[] args) {
+        ArrayDeque<Integer> ad = new ArrayDeque();
+        for (int i = 0; i < 10; i++) {
+            ad.addLast(i);
+        }
+        ad.addFirst(-1);
+        ad.addFirst(-2);
+        for (int x : ad) {
+            System.out.println(x);
+        }
+    }*/
 }
 

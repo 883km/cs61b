@@ -45,7 +45,7 @@ public class DequeRandomizedTest{
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // This is for debugging only.
         LinkedListDeque<Integer> lld = new LinkedListDeque<>();
         ArrayDeque<Integer> ad = new ArrayDeque<>();
 

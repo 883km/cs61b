@@ -176,14 +176,4 @@ public class ArrayDeque<T> implements Iterable<T> {
             return returnItem;
         }
     }
-
-    public static void main(String[] args) {
-        ArrayDeque<Integer> ad = new ArrayDeque();
-        for (int i = 0; i < 10; i++) {
-            ad.addLast(i);
-        }
-        for (int x : ad) {
-            System.out.println(x);
-        }
-    }
 }

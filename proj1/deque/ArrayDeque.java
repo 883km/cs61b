@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<T> {
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Iterable<T> {
     private T[] items;
     private int size;
     private int first; // Index of the first item in the circular queue.
@@ -146,6 +148,32 @@ public class ArrayDeque<T> {
     private void shrinkArray() {
         if ((size <= items.length / 4) && (size > 4)) {
             resizeArray(items.length / 4);
+        }
+    }
+
+    /** Make lld iterable. */
+    public Iterator<T> iterator() {
+        return new AdIterator();
+    }
+
+    private class AdIterator implements Iterator<T> {
+        private int wizPos;
+        public AdIterator() {
+            wizPos = first;
+        }
+
+        public boolean hasNext() {
+            return wizPos != last;
+        }
+
+        public T next() {
+            T returnItem = items[wizPos];
+            if (wizPos == items.length - 1) {
+                wizPos = 0;
+            } else {
+                wizPos += 1;
+            }
+            return returnItem;
         }
     }
 }

@@ -14,24 +14,24 @@ public class ArrayDequeTest {
      *
      * && is the "and" operation. */
     public void addIsEmptySizeTest() {
-        ArrayDeque<String> lld1 = new ArrayDeque<String>();
+        ArrayDeque<String> ad1 = new ArrayDeque<String>();
 
-        assertTrue("A newly initialized LLDeque should be empty", lld1.isEmpty());
-        lld1.addFirst("front");
+        assertTrue("A newly initialized LLDeque should be empty", ad1.isEmpty());
+        ad1.addFirst("front");
 
         // The && operator is the same as "and" in Python.
         // It's a binary operator that returns true if both arguments true, and false otherwise.
-        assertEquals(1, lld1.size());
-        assertFalse("lld1 should now contain 1 item", lld1.isEmpty());
+        assertEquals(1, ad1.size());
+        assertFalse("ad1 should now contain 1 item", ad1.isEmpty());
 
-        lld1.addLast("middle");
-        assertEquals(2, lld1.size());
+        ad1.addLast("middle");
+        assertEquals(2, ad1.size());
 
-        lld1.addLast("back");
-        assertEquals(3, lld1.size());
+        ad1.addLast("back");
+        assertEquals(3, ad1.size());
 
         System.out.println("Printing out deque: ");
-        lld1.printDeque();
+        ad1.printDeque();
     }
 
     @Test

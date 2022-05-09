@@ -167,6 +167,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
 
         public boolean hasNext() {
+            if (isEmpty()) {
+                return false;
+            }
             return wizPos != last + 1;
         }
 

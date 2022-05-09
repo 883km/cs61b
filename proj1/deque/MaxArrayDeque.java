@@ -37,7 +37,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         return maxItem;
     }
 
-    class HashCodeComparator implements Comparator<T> {
+    private class HashCodeComparator implements Comparator<T> {
         public int compare(T item1, T item2) {
             return item1.hashCode() - item2.hashCode();
         }

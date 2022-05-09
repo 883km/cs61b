@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Iterable<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
     private int first; // Index of the first item in the circular queue.
@@ -14,6 +14,7 @@ public class ArrayDeque<T> implements Iterable<T> {
     }
 
 
+    @Override
     public void addFirst(T item) {
         if (size == items.length) {
             resizeArray(size * 2);
@@ -32,6 +33,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         items[first] = item;
     }
 
+    @Override
     public void addLast(T item) {
         if (size == items.length) {
             resizeArray(size * 2);
@@ -50,14 +52,12 @@ public class ArrayDeque<T> implements Iterable<T> {
         items[last] = item;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public T removeFirst() {
         if (size > 0) {
             shrinkArray();
@@ -74,6 +74,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         return null;
     }
 
+    @Override
     public T removeLast() {
         if (size > 0) {
             shrinkArray();
@@ -90,6 +91,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         return null;
     }
 
+    @Override
     public T get(int index) {
         if (size > 0 && index < size) {
             if (first + index < items.length) {
@@ -101,14 +103,15 @@ public class ArrayDeque<T> implements Iterable<T> {
         return null;
     }
 
+    @Override
     public void printDeque() {
-        /** Consider two situations -
-         *  first < last: array index 0 does not fall in the middle of the deque (easy mode).
-         *      [null, null, first, xx, xx, xx, last, null, null]
+        /* Consider two situations -
+         * first < last: array index 0 does not fall in the middle of the deque (easy mode).
+         *     [null, null, first, xx, xx, xx, last, null, null]
          *
-         *  first > last: array index 0 falls in the middle of the deque.
-         *      [xx, xx, xx, last, null, null, null, first, xx, xx]
-         *  */
+         * first > last: array index 0 falls in the middle of the deque.
+         *     [xx, xx, xx, last, null, null, null, first, xx, xx]
+         * */
 
         if (size > 0) {
             if (first <= last) {
@@ -130,7 +133,7 @@ public class ArrayDeque<T> implements Iterable<T> {
     /** HELPER methods below. */
 
     private void resizeArray(int capacity) {
-        /** Consider the two situations mentioned above*/
+        /* Consider the two situations mentioned above. */
 
         T[] newItems = (T []) new Object[capacity];
         if (first < last) {
@@ -144,7 +147,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         last = size - 1;
     }
 
-    /** check array usage. If usage < 25% then shrink array length. */
+    /* check array usage. If usage < 25% then shrink array length. */
     private void shrinkArray() {
         if ((size <= items.length / 4) && (size > 4)) {
             resizeArray(items.length / 4);
@@ -152,6 +155,7 @@ public class ArrayDeque<T> implements Iterable<T> {
     }
 
     /** Make lld iterable. */
+
     public Iterator<T> iterator() {
         return new AdIterator();
     }

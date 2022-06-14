@@ -4,18 +4,28 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
+    /** No need to instantiate BSTMap. Use put method instead. */
+    BSTNode root;
+    int size;
+
     private class BSTNode {
         K key;
         V value;
         BSTNode left;
         BSTNode right;
-        int size;
+
+        public BSTNode(K k, V v) {
+            key = k;
+            value = v;
+            left = null;
+            right = null;
+        }
     }
-    BSTNode root;
 
     @Override
     public void clear() {
         root = null;
+        size = 0;
     }
 
     @Override
@@ -47,12 +57,29 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public int size() {
-        return root.size;
+        return size;
     }
 
     @Override
     public void put(K key, V value) {
+        if (!containsKey(key)) {
+            size += 1;
+        }
+        put(root, key, value);
+    }
 
+    private void put(BSTNode node, K key, V value) {
+        if (node == null) {
+            node = new BSTNode(key, value);
+        }
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0) {
+            put(node.left, key, value);
+        } else if (cmp > 0) {
+            put(node.right, key, value);
+        } else {
+            node.value = value;  /* If key already exists, replace the value associated to that key. */
+        }
     }
 
     public void printInOrder() {

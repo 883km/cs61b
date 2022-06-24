@@ -1,10 +1,12 @@
 package bstmap;
 
+import edu.princeton.cs.algs4.BST;
+
 import java.util.Iterator;
 import java.util.Set;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
-    /** No need to instantiate BSTMap. Use put method instead. */
+    /** Use new keyword first to instantiate an empty BSTMap, then use put method to add nodes. */
     BSTNode root;
     int size;
 
@@ -22,6 +24,10 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         }
     }
 
+    public BSTMap() {
+        clear();  /* When instantiated, create an empty BST. */
+    }
+
     @Override
     public void clear() {
         root = null;
@@ -30,10 +36,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public boolean containsKey(K key) {
-        if (get(root, key) == null) {
-            return false;
-        }
-        return true;
+        return get(key) != null;
     }
 
     @Override
@@ -65,44 +68,54 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         if (!containsKey(key)) {
             size += 1;
         }
-        put(root, key, value);
+        root = put(root, key, value);
     }
 
-    private void put(BSTNode node, K key, V value) {
+    private BSTNode put(BSTNode node, K key, V value) {
         if (node == null) {
-            node = new BSTNode(key, value);
+            return new BSTNode(key, value);
         }
         int cmp = key.compareTo(node.key);
         if (cmp < 0) {
-            put(node.left, key, value);
+            node.left = put(node.left, key, value);
         } else if (cmp > 0) {
-            put(node.right, key, value);
+            node.right = put(node.right, key, value);
         } else {
             node.value = value;  /* If key already exists, replace the value associated to that key. */
         }
+        return node;
     }
 
     public void printInOrder() {
+        inOrder(root);
+    }
 
+    private void inOrder(BSTNode node) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left);
+        System.out.println(node.key + " : " + node.value);
+        inOrder(node.right);
     }
 
     @Override
     public Set<K> keySet() {
-        return null; //throw exception
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public V remove(K key) {
-        return null; //throw exception
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public V remove(K key, V value) {
-        return null; //throw exception
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Iterator<K> iterator() {
-        return null; //throw exception
+        throw new UnsupportedOperationException();
     }
 }

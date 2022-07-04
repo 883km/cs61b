@@ -7,8 +7,8 @@ import java.util.Set;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     /** Use new keyword first to instantiate an empty BSTMap, then use put method to add nodes. */
-    BSTNode root;
-    int size;
+    private BSTNode root;
+    private int size;
 
     private class BSTNode {
         K key;
